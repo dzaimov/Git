@@ -2,7 +2,7 @@
 
 $username="root";
 $password="root";
-$database="GoogleMap";
+$database="fromApi";
 
 
 // Start XML file, create parent node
@@ -25,7 +25,7 @@ if (!$db_selected) {
 
 // Select all the rows in the markers table
 
-$query = "SELECT * FROM markers WHERE 1";
+$query = "SELECT * FROM marker WHERE 1";
 $result = mysql_query($query);
 if (!$result) {
   die('Invalid query: ' . mysql_error());
@@ -40,10 +40,9 @@ while ($row = @mysql_fetch_assoc($result)){
   $node = $dom->createElement("marker");
   $newnode = $parnode->appendChild($node);
   $newnode->setAttribute("name",$row['name']);
-  $newnode->setAttribute("address", $row['address']);
+  $newnode->setAttribute("country", $row['country']);
   $newnode->setAttribute("lat", $row['lat']);
-  $newnode->setAttribute("lng", $row['lng']);
-  $newnode->setAttribute("type", $row['type']);
+  $newnode->setAttribute("lon", $row['lon']);
 }
 
 echo $dom->saveXML();
